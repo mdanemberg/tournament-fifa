@@ -27,6 +27,7 @@ function addInputPlayer () {
 	input.setAttribute('class', 'newPlayer');
 	input.setAttribute('placeholder', "Player's name");
 	container.appendChild(input);
+	input.focus();
 }
 
 function removeInputPlayer () {
@@ -57,18 +58,21 @@ function step2 () {
 
 function addTeams () {
 	var inputs = document.getElementsByClassName('input-team'),
-	i = inputs.length;
-	while(i>0){
+	i = inputs.length-1;
+	while(i>=0){
 		for (var j = 0; j < inputs.length; j++) {
-			
+			if (currentTournament.players[i]._name === inputs[j].getAttributeNode("name-player").value) {
+				currentTournament.players[i].team = inputs[j].value;
+			}
 		}
+		i--;
 	}
 }
 
 
 
 
-inputs[i].getAttributeNode("name-player").value
+
 
 
 
