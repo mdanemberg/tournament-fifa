@@ -3,11 +3,45 @@
 <head>
 	<meta charset="UTF-8">
 	<title>tournament</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/screen.css">
 </head>
 <body>
-	<script type="text/javascript" src="system.js"></script>
-	<script type="text/javascript">
-		var matheus = new Player('matheus');
-	</script>
+	<div class="container">
+		<header id="header">
+			<h1>Fifa 13 Tournament</h1>
+		</header>
+		<section class="content">
+			<section id="step1" class="container-new-players">
+				<h4>add players</h4>
+				<form id="form">
+					<input class="newPlayer" type="text" placeholder="Player's name">
+					<input class="newPlayer" type="text" placeholder="Player's name">
+				</form>
+				<div class="buttons clearfix">
+					<a class="btn btn-small btn-primary" href="javascript:;" onclick="addInputPlayer()" title="More one input"><i class="icon-plus"></i></a>
+					<a class="btn btn-small btn-danger" href="javascript:;" onclick="removeInputPlayer()"><i class="icon-remove"></i></a>
+				</div>
+				<a href="javascript:;" onclick="addPlayers()" class="btn btn-success go disabled">Go to next step</a>
+			</section>
+			<section id="step2" class="container-select-team" style="display:none;">
+				<h4>set team</h4>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th width="200"><b>NAME</b></th>
+							<th width="200"><b>TEAM</b></th>
+						</tr>
+					</thead>
+ 					<tbody id="content-table-set-team">
+ 						
+ 					</tbody>
+				</table>
+				<a href="javascript:;" onclick="addTeams()" class="btn btn-success go disabled">let's play</a>
+			</section>
+		</section>
+		<script type="text/javascript" src="js/system.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	</div>
 </body>
 </html>

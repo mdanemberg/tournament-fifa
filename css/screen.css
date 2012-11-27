@@ -1,0 +1,42 @@
+@charset "UTF-8";
+/* RESET */
+html, body {margin:0; -webkit-text-size-adjust: none;}
+body, form, fieldset, label, legend, input, select, textarea, option, img, p, h1, h2, h3, h4, h5, h6, table, tr, td, th, tbody, thead, tfoot, caption, ul, dl, ol, li, dd, dt {margin:0; padding:0;}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {display:block; margin:0; padding:0;}
+body, form, fieldset, img, legend {border:0;}
+ul, ol {padding-left:30px;}
+nav ul, nav ol {list-style:none; list-style-image:none; margin:0; padding:0;}
+table {border-collapse:collapse; border-spacing:0;}
+a {cursor:pointer; -webkit-tap-highlight-color: rgba(0,0,0,0);}
+p {padding-bottom:12px;}
+a img {border:0;}
+
+
+/* HELPERS */
+.ir {background-color:transparent; border:0; overflow:hidden; *text-indent:-9999px;}
+.ir:before {content:""; display:block; width:0; height:100%;}
+.hidden {display:none;}
+.clearfix:before,
+.clearfix:after {content:" "; display:table;}
+.clearfix:after {clear:both;}
+.clearfix {*zoom:1;}
+.left {float:left;}
+.right {float:right;}
+.center {margin:0 auto;}
+
+.container {font-family:Tahoma;}
+
+#header {height:150px; text-align:center;}
+#header h1 {line-height:150px;}
+
+.content h4 {margin-bottom:20px;}
+.content .container-new-players {width:200px; margin:0 auto;}
+	.container-new-players input {width:188px;}
+	.container-new-players .buttons {width:200px;}
+	.container-new-players .buttons .btn {float:right;}
+	.container-new-players .buttons .btn.btn-primary {margin-left:8px;}
+	.container-new-players .go {margin: 20px auto; display:block;}
+
+.content .container-select-team {width:500px; margin:0 auto;}
+	.container-select-team input {margin:0;}
+	.container-select-team td {line-height:30px;}
