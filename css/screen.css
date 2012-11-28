@@ -40,3 +40,8 @@ a img {border:0;}
 .content .container-select-team {width:500px; margin:0 auto;}
 	.container-select-team input {margin:0;}
 	.container-select-team td {line-height:30px;}
+
+.content .container-internal {width:650px; margin:0 auto;}
+.content .nav {width:100px; float:left; margin:0; padding:0;}
+.content .table-games {width:500px;}
+.content .table-games td {padding:10px 0; text-align:center;}

@@ -56,6 +56,8 @@ function step2 () {
 	show(document.getElementById('step2'));
 }
 
+
+
 function addTeams () {
 	var inputs = document.getElementsByClassName('input-team'),
 	i = inputs.length-1;
@@ -67,6 +69,9 @@ function addTeams () {
 		}
 		i--;
 	}
+	hide(document.getElementById('step2'));
+	currentTournament.table();
+	show(document.getElementById('step3'));
 }
 
 

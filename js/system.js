@@ -1,3 +1,10 @@
+Array.prototype.shuffle = function() {
+	var s = [];
+	while (this.length) s.push(this.splice(Math.random() * this.length, 1)[0]);
+	while (s.length) this.push(s.pop());
+	return this;
+}
+
 // Player's Class
 function Player (name) {
 	this._name = name;
@@ -20,3 +27,13 @@ Tournament.prototype.newGame = function(player1, player2) {
 		}
 	}
 };
+
+Tournament.prototype.table = function() {
+	this.players.shuffle();
+	var html = '';
+	for (var i = 0; i < this.players.length; i+=2) {
+		html +='<tr><td width="220">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="220">'+this.players[i+1]._name+' ('+this.players[i+1].team+')</td></tr>';	
+	}
+	document.getElementById('table-games').innerHTML = html;
+}
+
