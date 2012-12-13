@@ -31,9 +31,17 @@ Tournament.prototype.newGame = function(player1, player2) {
 
 Tournament.prototype.table = function() {
 	this.players.shuffle();
-	var html = '';
-	for (var i = 0; i < this.players.length; i+=2) {
-		html +='<tr><td width="200">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.players[i+1]._name+' ('+this.players[i+1].team+')</td><td width="40"><a href="javascript:;">jogar</a></td></tr>';
+	var games = [], numPlayers = this.players.length, html = '';
+		for (var i = 0; i < numPlayers; i++) {
+			for (var j = 0; j < numPlayers; j++) {
+				if(i!==j) {
+					games.push('<tr><td width="200">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.players[j]._name+' ('+this.players[j].team+')</td><td width="40"><a href="javascript:;">jogar</a></td></tr>');
+				}
+			}
+		}
+	// games.shuffle();
+	for (var k = 0; k < games.length; k++) {
+		html += games[k];
 	}
 	document.getElementById('table-games').innerHTML = html;
 };
@@ -81,7 +89,7 @@ Tournament.prototype.addPlayers = function(inputClass) {
 			this.players[i] = new Player(inputs[i].value);
 		}
 	}
-	if(this.players.length/2 !== 0) {
+	if(this.players.length % 2 !== 0) {
 		var bot = new Player('bot');
 		bot.team = 'bot';
 		this.players.push(bot);
