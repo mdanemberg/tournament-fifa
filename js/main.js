@@ -24,7 +24,7 @@ function addInputPlayer () {
 	var container = document.getElementById('form');
 	var input = document.createElement('input');
 	input.setAttribute('type', 'text');
-	input.setAttribute('class', 'newPlayer');
+	input.setAttribute('class', 'new-player');
 	input.setAttribute('placeholder', "Player's name");
 	container.appendChild(input);
 	input.focus();
@@ -32,61 +32,45 @@ function addInputPlayer () {
 
 function removeInputPlayer () {
 	var container = document.getElementById('form'),
-	inputs = document.getElementsByClassName('newPlayer');
+	inputs = document.getElementsByClassName('new-player');
 	if(inputs.length > 2) {
 		container.removeChild(inputs[inputs.length-1]);
 	}
 }
 
-function addPlayers () {
-	var inputs = document.getElementsByClassName('newPlayer');
-	for (var i = 0; i < inputs.length; i++) {
-		currentTournament.players[i] = new Player(inputs[i].value);
-	}
-	hide(document.getElementById('step1'));
-	step2();
-}
-
 function step2 () {
 	var html = '';
 	for (var i = 0; i < currentTournament.players.length; i++) {
-		html += '<tr><td width="200">'+currentTournament.players[i]._name+'</td><td width="200"><input class="input-team" type="text" name-player="'+currentTournament.players[i]._name+'"></td></tr> ';
+		if(currentTournament.players[i]._name !== 'bot') {
+			html += '<tr><td width="200">'+currentTournament.players[i]._name+'</td><td width="200"><input class="input-team" type="text" name-player="'+currentTournament.players[i]._name+'"></td></tr> ';
+		}
 	}
 	document.getElementById('content-table-set-team').innerHTML = html;
 	show(document.getElementById('step2'));
 }
 
+var btnRank = document.getElementsByClassName('btn-rank');
+var btnTable = document.getElementsByClassName('btn-table');
 
+btnRank[0].onclick = function() {
+	btnRank[0].parentElement.className = 'active';
+	btnTable[0].parentElement.className = '';
+	currentTournament.getRank('content-rank');
+	hide(document.getElementById('table-games'));
+	show(document.getElementById('table-rank'));
+};
 
-function addTeams () {
-	var inputs = document.getElementsByClassName('input-team'),
-	i = inputs.length-1;
-	while(i>=0){
-		for (var j = 0; j < inputs.length; j++) {
-			if (currentTournament.players[i]._name === inputs[j].getAttributeNode("name-player").value) {
-				currentTournament.players[i].team = inputs[j].value;
-			}
-		}
-		i--;
-	}
-	hide(document.getElementById('step2'));
-	currentTournament.table();
-	show(document.getElementById('step3'));
-}
+btnTable[0].onclick = function() {
+	btnTable[0].parentElement.className = 'active';
+	btnRank[0].parentElement.className = '';
+	show(document.getElementById('table-games'));
+	hide(document.getElementById('table-rank'));
+};
 
+document.getElementById('add-players').onclick = function() {
+	currentTournament.addPlayers('new-player');
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+document.getElementById('add-teams').onclick = function() {
+	currentTournament.addTeams('input-team');
+};

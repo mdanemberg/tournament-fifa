@@ -15,14 +15,14 @@
 			<section id="step1" class="container-new-players">
 				<h4>add players</h4>
 				<form id="form">
-					<input class="newPlayer" type="text" placeholder="Player's name">
-					<input class="newPlayer" type="text" placeholder="Player's name">
+					<input class="new-player" type="text" placeholder="Player's name">
+					<input class="new-player" type="text" placeholder="Player's name">
 				</form>
 				<div class="buttons clearfix">
 					<a class="btn btn-small btn-primary" href="javascript:;" onclick="addInputPlayer()" title="More one input"><i class="icon-plus"></i></a>
 					<a class="btn btn-small btn-danger" href="javascript:;" onclick="removeInputPlayer()"><i class="icon-remove"></i></a>
 				</div>
-				<a href="javascript:;" onclick="addPlayers()" class="btn btn-success go disabled">Go to next step</a>
+				<a href="javascript:;" id="add-players" class="btn btn-success go disabled">Go to next step</a>
 			</section>
 			<section id="step2" class="container-select-team" style="display:none;">
 				<h4>set team</h4>
@@ -34,25 +34,44 @@
 						</tr>
 					</thead>
  					<tbody id="content-table-set-team">
- 						
+ 						<!-- -->
  					</tbody>
 				</table>
-				<a href="javascript:;" onclick="addTeams()" class="btn btn-success go disabled">let's play</a>
+				<a href="javascript:;" id="add-teams" class="btn btn-success go disabled">let's play</a>
 			</section>
 			<section id="step3" class="container-internal clearfix" style="display:none;">
 				<ul class="nav nav-pills nav-stacked">
-					<li class="active"><a href="#">table</a></li>
-					<li><a href="#">rank</a></li>
+					<li class="active"><a href="#" class="btn-table">table</a></li>
+					<li><a href="#" class="btn-rank">rank</a></li>
 				</ul>
 				<section class="table-games right">
 					<table id="table-games" class="table table-striped" width="500">
-						
+						<!-- -->
+					</table>
+				</section>
+				<section class="table-rank right">
+					<table id="table-rank" class="table table-striped" width="500" style="display:none;">
+						<thead>
+							<tr>
+								<th width="450"><b>PLAYER</b></th>
+								<th width="50"><b>POINTS</b></th>
+							</tr>
+						</thead>
+						<tbody id="content-rank">
+							<!-- -->
+						</tbody>
 					</table>
 				</section>
 			</section>
 		</section>
 		<script type="text/javascript" src="js/system.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script>
+			// for(var i=0; i<10; i++){
+			// 	currentTournament.players[i] = new Player('matheus');
+			// 	currentTournament.players[i].points=i;
+			// }
+		</script>
 	</div>
 </body>
 </html>
