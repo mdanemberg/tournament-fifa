@@ -19,14 +19,16 @@ function Tournament () {
 }
 
 Tournament.prototype.newGame = function(player1, player2) {
-	var game = ['player1', 'player2'];
-	for (var i = players.length - 1; i >= 0; i--) {
-		if (players[i]._name === player1) {
-			game['player1'] = players[i];
-		}else if (players[i]._name === player2) {
-			game['player2'] = players[i];
+	var game = ['player1', 'player2'],
+		html = '';
+	for (var i = this.players.length - 1; i >= 0; i--) {
+		if (this.players[i]._name === player1) {
+			game['player1'] = this.players[i];
+		}else if (this.players[i]._name === player2) {
+			game['player2'] = this.players[i];
 		}
 	}
+	return game;
 };
 
 Tournament.prototype.table = function() {
@@ -34,8 +36,10 @@ Tournament.prototype.table = function() {
 	var games = [], numPlayers = this.players.length, html = '';
 		for (var i = 0; i < numPlayers; i++) {
 			for (var j = 0; j < numPlayers; j++) {
-				if(i!==j) {
-					games.push('<tr><td width="200">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.players[j]._name+' ('+this.players[j].team+')</td><td width="40"><a href="javascript:;">jogar</a></td></tr>');
+				// todos contra todos ida e volta --> if(i!==j)
+				// todos contra todos só ida --> if(i<j)
+				if(i<j) {
+					games.push('<tr><td width="200">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.players[j]._name+' ('+this.players[j].team+')</td><td width="40"><a href="javascript:;" class="btn-play-game" name-player-1="'+this.players[i]._name+'" name-player-2="'+this.players[j]._name+'" onclick="currentTournament.playGame(this);">jogar</a></td></tr>');
 				}
 			}
 		}
@@ -97,3 +101,21 @@ Tournament.prototype.addPlayers = function(inputClass) {
 	hide(document.getElementById('step1'));
 	step2();
 };
+
+Tournament.prototype.playGame = function(ev) {
+	var player1 = ev.getAttributeNode("name-player-1").value,
+		player2 = ev.getAttributeNode("name-player-2").value;
+
+	this.newGame(player1, player2);
+};
+
+
+
+
+
+
+
+
+
+
+
