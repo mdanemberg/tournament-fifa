@@ -7,7 +7,7 @@ Array.prototype.shuffle = function() {
 // Player's Class
 function Player (name) {
 	this._name = name;
-	this.team = 'undefined';
+	this.team = 'undefined'; 
 	this.points = 0;
 	this.gols = 0;
 }

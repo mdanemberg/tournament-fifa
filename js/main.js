@@ -8,7 +8,7 @@ function show (el) {
 	el.style.display="block";
 }
 
-function hasClass (el, cls) {
+function hasClass (el, cls) { 
 	var classes = el.className.split(" "),
 	equal = '';
 	for (var i = 0; i < classes.length; i++) {
