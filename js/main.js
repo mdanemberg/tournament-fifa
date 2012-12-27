@@ -1,29 +1,14 @@
 var currentTournament = new Tournament();
 currentTournament.getPlayers();
 
-function hide (el) {
-	el.style.display="none";
-}
-
-function show (el) {
-	el.style.display="block";
-}
-
-function hasClass (el, cls) {
-	var classes = el.className.split(" "),
-	equal = '';
-	for (var i = 0; i < classes.length; i++) {
-		if(classes[i] === cls){
-			equal = classes[i];
-			return true;
-		}
-	}
-	return false;
-}
+/*
+ * Step 1: add players.
+*/
 
 function addInputPlayer () {
-	var container = document.getElementById('form');
-	var input = document.createElement('input');
+	var container = document.getElementById('form'),
+		input = document.createElement('input');
+
 	input.setAttribute('type', 'text');
 	input.setAttribute('class', 'new-player');
 	input.setAttribute('placeholder', "Player's name");
@@ -33,11 +18,25 @@ function addInputPlayer () {
 
 function removeInputPlayer () {
 	var container = document.getElementById('form'),
-	inputs = document.getElementsByClassName('new-player');
+		inputs = document.getElementsByClassName('new-player');
+
 	if(inputs.length > 2) {
 		container.removeChild(inputs[inputs.length-1]);
 	}
 }
+
+document.getElementById('add-players').onclick = function() {
+	currentTournament.addPlayers('new-player', function(){
+		hide(document.getElementById('step1'));
+		step2();
+	});
+};
+
+// end step1
+
+/*
+ * Step2: add teams.
+*/
 
 function step2 () {
 	var html = '';
@@ -49,6 +48,20 @@ function step2 () {
 	document.getElementById('content-table-set-team').innerHTML = html;
 	show(document.getElementById('step2'));
 }
+
+document.getElementById('add-teams').onclick = function() {
+	currentTournament.addTeams('input-team', function(){
+		hide(document.getElementById('step2'));
+		currentTournament.table();
+		show(document.getElementById('step3'));
+	});
+};
+
+//end step2
+
+/*
+ * Step3: table and rank
+ */
 
 var btnRank = document.getElementsByClassName('btn-rank');
 var btnTable = document.getElementsByClassName('btn-table');
@@ -66,12 +79,4 @@ btnTable[0].onclick = function() {
 	btnRank[0].parentElement.className = '';
 	show(document.getElementById('table-games'));
 	hide(document.getElementById('table-rank'));
-};
-
-document.getElementById('add-players').onclick = function() {
-	currentTournament.addPlayers('new-player');
-};
-
-document.getElementById('add-teams').onclick = function() {
-	currentTournament.addTeams('input-team');
 };

@@ -26,9 +26,7 @@ TournamentDb.prototype.getPlayers = function(callback) {
 		tx.executeSql('SELECT * FROM players', [], function (tx, results){
 
   			var len = results.rows.length, i;
-  			console.log(len)
   			for (i = 0; i < len; i++) {
-  				console.log(i)
   				_self.players[i] = 	new Player(results.rows.item(i).name);
   				_self.players[i]._id = results.rows.item(i).id;
   				_self.players[i].team = results.rows.item(i).team;
