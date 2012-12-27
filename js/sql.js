@@ -19,11 +19,7 @@ TournamentDb.prototype.addGames = function(id, player1, player2) {
 	});
 };
 
-var cbPlayers = function(players) {
-	return players;
-}
-
-TournamentDb.prototype.getPlayers = function(cbPlayers) {
+TournamentDb.prototype.getPlayers = function(callback) {
 	var _self = this;
 	this.db.transaction(function (tx) {
 
@@ -39,8 +35,8 @@ TournamentDb.prototype.getPlayers = function(cbPlayers) {
   				_self.players[i].gols = results.rows.item(i).gols;
   				_self.players[i].gols = results.rows.item(i).points;
   			}
+			callback(_self.players);
 		});
-		cbPlayers(_self.players);
 	});
 };
 
