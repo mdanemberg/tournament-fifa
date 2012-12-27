@@ -39,5 +39,3 @@ TournamentDb.prototype.getPlayers = function(callback) {
 		});
 	});
 };
-
-var torDb = new TournamentDb();

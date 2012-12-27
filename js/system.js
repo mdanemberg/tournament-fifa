@@ -17,6 +17,7 @@ function Player (name) {
 function Tournament () {
 	this.players = [];
 	this.rank = [];
+	this.torDb = new TournamentDb();
 }
 
 Tournament.prototype.newGame = function(player1, player2) {
@@ -30,6 +31,13 @@ Tournament.prototype.newGame = function(player1, player2) {
 		}
 	}
 	return game;
+};
+
+Tournament.prototype.getPlayers = function() {
+	var self = this;
+	this.torDb.getPlayers(function(players) {
+		self.players = players;
+	});
 };
 
 Tournament.prototype.table = function() {
