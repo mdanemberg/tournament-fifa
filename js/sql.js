@@ -1,7 +1,7 @@
 function TournamentDb () {
 	this.players = [];
 	this.db = openDatabase('Tournament', '1.0', 'Tournament database', 2 * 1024 * 1024);
-	this.db.transaction(function (tx) {
+	this.db.transaction(function (tx){
   		tx.executeSql('CREATE TABLE IF NOT EXISTS players (id unique, name, team, gols, points)');
   		tx.executeSql('CREATE TABLE IF NOT EXISTS games (id unique, player1, player2)');
 	});
@@ -19,24 +19,29 @@ TournamentDb.prototype.addGames = function(id, player1, player2) {
 	});
 };
 
-TournamentDb.prototype.getPlayers = function() {
+var cbPlayers = function(players) {
+	return players;
+}
+
+TournamentDb.prototype.getPlayers = function(cbPlayers) {
 	var _self = this;
 	this.db.transaction(function (tx) {
-		tx.executeSql('SELECT * FROM players', [], function (tx, results) {
+
+		tx.executeSql('SELECT * FROM players', [], function (tx, results){
+
   			var len = results.rows.length, i;
+  			console.log(len)
   			for (i = 0; i < len; i++) {
-  				// players[i] = 	results.rows.item(i).id+','
-  				// 			   +results.rows.item(i).name+','
-  				// 			   +results.rows.item(i).team+','
-  				// 			   +results.rows.item(i).gols+','
-  				// 			   +results.rows.item(i).points;
-  				_self.players[i] = results.rows.item(i).team;
-  				var nome = results.rows.item(i).name;
-  				alert(','+nome);
+  				console.log(i)
+  				_self.players[i] = 	new Player(results.rows.item(i).name);
+  				_self.players[i]._id = results.rows.item(i).id;
+  				_self.players[i].team = results.rows.item(i).team;
+  				_self.players[i].gols = results.rows.item(i).gols;
+  				_self.players[i].gols = results.rows.item(i).points;
   			}
 		});
+		cbPlayers(_self.players);
 	});
-	return _self.players;
 };
 
 var torDb = new TournamentDb();
