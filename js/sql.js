@@ -1,6 +1,6 @@
 function TournamentDb () {
 	this.players = [];
-	this.db = openDatabase('Tournament', '1.0', 'Tournament database', 2 * 1024 * 1024);
+	this.db = openDatabase('Tournament12111', '1.0', 'Tournament database', 2 * 1024 * 1024);
 	this.db.transaction(function (tx){
   		tx.executeSql('CREATE TABLE IF NOT EXISTS players (id unique, name, team, gols, points)');
   		tx.executeSql('CREATE TABLE IF NOT EXISTS games (id unique, player1, player2)');

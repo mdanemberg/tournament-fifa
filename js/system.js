@@ -123,18 +123,57 @@ Tournament.prototype.addName = function(inputClass, callback) {
 	callback();
 };
 
-Tournament.prototype.playGame = function(ev) {
+Tournament.prototype.playGame = function(ev, callback) {
 	var player1 = ev.getAttributeNode("name-player-1").value,
-		player2 = ev.getAttributeNode("name-player-2").value;
+		player2 = ev.getAttributeNode("name-player-2").value,
+		htmlP1 = '',
+		htmlP2 = '';
 
-		console.log(player1)
-		console.log(player2)
+	for (var i = 0; i < this.players.length; i++) {
+		if(player1 === this.players[i]._name) {
+			htmlP1 = '<h3 id="player-1" name-player-1="'+this.players[i]._name+'">'+this.players[i]._name+' ('+this.players[i].team+')</h3> <input type="text" id="gols-player-1">';
+		}else if(player2 === this.players[i]._name) {
+			htmlP2 = '<h3 id="player-2" name-player-2="'+this.players[i]._name+'">'+this.players[i]._name+' ('+this.players[i].team+')</h3> <input type="text" id="gols-player-2">';
+		}
+	}
+	document.getElementById('box-player-1').innerHTML = htmlP1;
+	document.getElementById('box-player-2').innerHTML = htmlP2;
+
+	callback();
+};
+
+Tournament.prototype.finishGame = function(callback) {
+	var golsP1 = document.getElementById('gols-player-1').value,
+		golsP2 = document.getElementById('gols-player-2').value,
+		player1 = document.getElementById('player-1').getAttributeNode('name-player-1').value,
+		player2 = document.getElementById('player-2').getAttributeNode('name-player-2').value,
+		indexP1 = 0,
+		indexP2 = 0;
+
+	for (var i = 0; i < this.players.length; i++) {
+		if(player1 === this.players[i]._name) {
+			indexP1 = i;
+		}else if(player2 === this.players[i]._name) {
+			indexP2 = i;
+		}
+	}
+
+	if(golsP1 > golsP2) {
+		this.players[indexP1].points += 3;
+	}else if (golsP1 === golsP2) {
+		this.players[indexP1].points += 1;
+		this.players[indexP2].points += 1;
+	}else {
+		this.players[indexP2].points += 3;
+	}
+	this.addPlayers();
+	callback();
 };
 
 Tournament.prototype.addPlayers = function() {
 	for (var i = 0; i < this.players.length; i++) {
 		this.torDb.addPlayer(this.players[i]._id, this.players[i]._name, this.players[i].team, this.players[i].gols, this.players[i].points);
-	};
+	}
 };
 
 

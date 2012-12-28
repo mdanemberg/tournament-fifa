@@ -55,9 +55,9 @@ document.getElementById('add-teams').onclick = function() {
 		currentTournament.table();
 		show(document.getElementById('step3'));
 	});
+	clickPlayers();
 	currentTournament.addPlayers();
 };
-
 //end step2
 
 /*
@@ -81,4 +81,40 @@ btnTable[0].onclick = function() {
 	show(document.getElementById('table-games'));
 	hide(document.getElementById('table-rank'));
 };
+
+function clickPlayers () {
+	var elms = document.getElementsByClassName('btn-play-game');
+
+	for (var i = 0; i < elms.length; i++) {
+		elms[i].onclick = function() {
+			currentTournament.playGame(this, function() {
+				hide(document.getElementById('step3'));
+				show(document.getElementById('game'));
+			});
+		};
+	}
+}
+
+/*
+ * Step Game
+*/
+
+document.getElementById('finish-game').onclick = function () {
+	currentTournament.finishGame(function() {
+		hide(document.getElementById('game'));
+		show(document.getElementById('step3'));
+	});
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
