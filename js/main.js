@@ -26,7 +26,7 @@ function removeInputPlayer () {
 }
 
 document.getElementById('add-players').onclick = function() {
-	currentTournament.addPlayers('new-player', function(){
+	currentTournament.addName('new-player', function(){
 		hide(document.getElementById('step1'));
 		step2();
 	});
@@ -61,7 +61,7 @@ document.getElementById('add-teams').onclick = function() {
 
 /*
  * Step3: table and rank
- */
+*/
 
 var btnRank = document.getElementsByClassName('btn-rank');
 var btnTable = document.getElementsByClassName('btn-table');

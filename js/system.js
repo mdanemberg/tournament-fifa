@@ -36,7 +36,7 @@ Tournament.prototype.getPlayers = function() {
 	});
 };
 
-Tournament.prototype.setGames = function(arguments) {
+Tournament.prototype.setGames = function() {
 	this.players.shuffle();
 	var numPlayers = this.players.length;
 	for (var i = 0; i < numPlayers; i++) {
@@ -52,7 +52,7 @@ Tournament.prototype.setGames = function(arguments) {
 		html += tableGames[k];
 	}
 	document.getElementById('table-games').innerHTML = html;
-}
+};
 
 Tournament.prototype.table = function() {
 	this.players.shuffle();
@@ -103,10 +103,14 @@ Tournament.prototype.addTeams = function(inputClass, callback) {
 		}
 		i--;
 	}
+	for (var k = 0; k > this.players.length; k++) {
+		var p = this.players;
+		this.torDb.addPlayers(p[k]._id,p[k]._name,p[k].team,p[k].gols,p[k].points);	
+	}
 	callback();
 };
 
-Tournament.prototype.addPlayers = function(inputClass, callback) {
+Tournament.prototype.addName = function(inputClass, callback) {
 	var inputs = document.getElementsByClassName(inputClass);
 	for (var i = 0; i < inputs.length; i++) {
 		if(inputs[i].value !== '') {
@@ -128,8 +132,9 @@ Tournament.prototype.playGame = function(ev) {
 	this.newGame(player1, player2);
 };
 
-
-
+Tournament.prototype.addPlayers = function(first_argument) {
+	// body...
+};
 
 
 
