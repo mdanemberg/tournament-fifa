@@ -62,7 +62,7 @@ Tournament.prototype.table = function() {
 			// todos contra todos ida e volta --> if(i!==j)
 			// todos contra todos só ida --> if(i<j)
 			if(i<j) {
-				tableGames.push('<tr><td width="200">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.players[j]._name+' ('+this.players[j].team+')</td><td width="40"><a href="javascript:;" class="btn-play-game" name-player-1="'+this.players[i]._name+'" name-player-2="'+this.players[j]._name+'" onclick="currentTournament.playGame(this);">jogar</a></td></tr>');
+				tableGames.push('<tr><td width="200">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.players[j]._name+' ('+this.players[j].team+')</td><td width="40"><a href="javascript:;" class="btn-play-game" name-player-1="'+this.players[i]._name+'" name-player-2="'+this.players[j]._name+'">jogar</a></td></tr>');
 			}
 		}
 	}
@@ -103,10 +103,6 @@ Tournament.prototype.addTeams = function(inputClass, callback) {
 		}
 		i--;
 	}
-	for (var k = 0; k > this.players.length; k++) {
-		var p = this.players;
-		this.torDb.addPlayers(p[k]._id,p[k]._name,p[k].team,p[k].gols,p[k].points);	
-	}
 	callback();
 };
 
@@ -115,11 +111,13 @@ Tournament.prototype.addName = function(inputClass, callback) {
 	for (var i = 0; i < inputs.length; i++) {
 		if(inputs[i].value !== '') {
 			this.players.push(new Player(inputs[i].value));
+			this.players[i]._id = i;
 		}
 	}
 	if(this.players.length % 2 !== 0) {
 		var bot = new Player('bot');
 		bot.team = 'bot';
+		bot._id = null;
 		this.players.push(bot);
 	}
 	callback();
@@ -129,11 +127,14 @@ Tournament.prototype.playGame = function(ev) {
 	var player1 = ev.getAttributeNode("name-player-1").value,
 		player2 = ev.getAttributeNode("name-player-2").value;
 
-	this.newGame(player1, player2);
+		console.log(player1)
+		console.log(player2)
 };
 
-Tournament.prototype.addPlayers = function(first_argument) {
-	// body...
+Tournament.prototype.addPlayers = function() {
+	for (var i = 0; i < this.players.length; i++) {
+		this.torDb.addPlayer(this.players[i]._id, this.players[i]._name, this.players[i].team, this.players[i].gols, this.players[i].points);
+	};
 };
 
 

@@ -55,6 +55,7 @@ document.getElementById('add-teams').onclick = function() {
 		currentTournament.table();
 		show(document.getElementById('step3'));
 	});
+	currentTournament.addPlayers();
 };
 
 //end step2
@@ -80,3 +81,4 @@ btnTable[0].onclick = function() {
 	show(document.getElementById('table-games'));
 	hide(document.getElementById('table-rank'));
 };
+
