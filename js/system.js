@@ -15,8 +15,8 @@ function Player(name) {
 */
 
 function Game(player1, player2) {
-	this.p1 = player1;
-	this.p2 = player2;
+	this.player1 = player1;
+	this.player2 = player2;
 	this.resulP1 = null;
 	this.resulP2 = null;
 }
@@ -44,28 +44,21 @@ Tournament.prototype.setGames = function() {
 			// todos contra todos ida e volta --> if(i!==j)
 			// todos contra todos só ida --> if(i<j)
 			if(i<j) {
-				this.games.push(players[i],players[j]);
+				this.games.push(new Game(this.players[i], this.players[j]));
 			}
 		}
 	}
-	for (var k = 0; k < tableGames.length; k++) {
-		html += tableGames[k];
-	}
-	document.getElementById('table-games').innerHTML = html;
 };
 
 Tournament.prototype.table = function() {
 	this.players.shuffle();
+	this.setGames();
 	var tableGames = [], numPlayers = this.players.length, html = '';
-	for (var i = 0; i < numPlayers; i++) {
-		for (var j = 0; j < numPlayers; j++) {
-			// todos contra todos ida e volta --> if(i!==j)
-			// todos contra todos só ida --> if(i<j)
-			if(i<j) {
-				tableGames.push('<tr><td width="200">'+this.players[i]._name+' ('+this.players[i].team+')</td><td width="20">-</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.players[j]._name+' ('+this.players[j].team+')</td><td width="40"><a href="javascript:;" class="btn-play-game" name-player-1="'+this.players[i]._name+'" name-player-2="'+this.players[j]._name+'">jogar</a></td></tr>');
-			}
-		}
+
+	for (var i = 0; i < this.games.length; i++) {
+		tableGames.push('<tr><td width="200">'+this.games[i].player1._name+' ('+this.games[i].player1.team+')</td><td width="20">'+((this.games[i].resulP1 === null) ? '-' : '--') +'</td><td width="20">X</td><td width="20">-</td><td width="200">'+this.games[i].player2._name+' ('+this.games[i].player2.team+')</td><td width="40"><a href="javascript:;" class="btn-play-game" name-player-1="'+this.games[i].player1._name+'" name-player-2="'+this.games[i].player2._name+'">jogar</a></td></tr>');
 	}
+
 	for (var k = 0; k < tableGames.length; k++) {
 		html += tableGames[k];
 	}
@@ -166,7 +159,8 @@ Tournament.prototype.finishGame = function(callback) {
 	}else {
 		this.players[indexP2].points += 3;
 	}
-	this.addPlayers();
+	this.torDb.setPoints(this.players[indexP1]._name, this.players[indexP1].points);
+	this.torDb.setPoints(this.players[indexP2]._name, this.players[indexP2].points);
 	callback();
 };
 
