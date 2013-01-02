@@ -37,3 +37,9 @@ TournamentDb.prototype.getPlayers = function(callback) {
 		});
 	});
 };
+
+TournamentDb.prototype.setPoints = function(player, points) {
+	this.db.transaction(function (tx) {
+		tx.executeSql('INSERT UPDATE players SET points = '+points+') where players.name = '+player);
+	});
+};
