@@ -14,7 +14,8 @@ function Player(name) {
  * Game's Class
 */
 
-function Game(player1, player2) {
+function Game(id, player1, player2) {
+	this._id = 0;
 	this.player1 = player1;
 	this.player2 = player2;
 	this.resulP1 = null;
@@ -38,13 +39,13 @@ Tournament.prototype.getPlayers = function() {
 
 Tournament.prototype.setGames = function() {
 	this.players.shuffle();
-	var numPlayers = this.players.length;
+	var numPlayers = this.players.length, id = 0;
 	for (var i = 0; i < numPlayers; i++) {
 		for (var j = 0; j < numPlayers; j++) {
 			// todos contra todos ida e volta --> if(i!==j)
 			// todos contra todos só ida --> if(i<j)
 			if(i<j) {
-				this.games.push(new Game(this.players[i], this.players[j]));
+				this.games.push(new Game(id++, this.players[i], this.players[j]));
 			}
 		}
 	}
